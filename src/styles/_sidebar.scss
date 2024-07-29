@@ -4,3 +4,31 @@
     background-color: colors.$sidebar-background;
     color: colors.$sidebar-text;
 }
+
+.sidebar-title {
+    border-bottom: 1px solid colors.$sidebar-border;
+    text-align: center;
+}
+
+.sidebar-nav {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: colors.$sidebar-url-higlight;
+}
+
+a:hover {
+    text-decoration: none;
+    color: colors.$sidebar-url-selected;
+}
+
+.sidbar-list-active {
+    text-decoration: underline;
+    color: colors.$sidebar-url-selected;
+}
+
+li {
+    margin: 0.5rem 0;
+}
