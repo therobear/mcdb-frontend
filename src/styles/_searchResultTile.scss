@@ -1,0 +1,30 @@
+@use '_colors' as colors;
+
+.search-tile-main {
+    background-color: colors.$secondary-background;
+    margin: 1rem 1rem;
+    padding: 1rem;
+    border-radius: 0.4rem;
+}
+
+.search-result-cover {
+    width: 14rem;
+}
+
+.search-result-title-div {
+    margin-bottom: 1rem;
+    font-weight: bold;
+    font-size: x-large;
+    border-bottom: solid colors.$secondary-underline 1px;
+}
+
+.search-result-desc-div {
+    display: flex;
+    height: 15rem;
+    overflow:auto;
+}
+
+.search-result-button-div {
+    margin-top: 1rem;
+    border-top: solid colors.$secondary-underline 1px;
+}

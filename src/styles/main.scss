@@ -1,8 +1,12 @@
+@use '_colors';
+@use '_sidebar';
+@use '_searchResultTile';
+
 body {
     margin: 0;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-      'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-      sans-serif;
+    height: 100vh;
+    background-color: colors.$main-background;
+    font: normal 16px / 1.6 'Open Sans', helvetica, arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
@@ -11,4 +15,22 @@ body {
     font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
       monospace;
   }
-  
+
+  .button-base {
+    color: colors.$button-text;
+    margin: 1rem 0.25rem;
+    padding: 0.5rem;
+    border: none;
+    font-size: medium;
+  }
+
+  .button-standard {
+    @extend .button-base;
+    background-color: colors.$button-background-standard;
+    
+  }
+
+  .button-warning {
+    @extend .button-base;
+    background-color: colors.$button-background-warning;
+  }

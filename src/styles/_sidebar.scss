@@ -1,0 +1,6 @@
+@use '_colors' as colors;
+
+.sidebar-main {
+    background-color: colors.$sidebar-background;
+    color: colors.$sidebar-text;
+}
