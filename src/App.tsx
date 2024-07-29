@@ -11,6 +11,7 @@ import {
     Games,
     Movies,
     Music,
+    SearchResults,
 } from './pages';
 
 const App = () => {
@@ -36,6 +37,10 @@ const App = () => {
                         <Route element={<Games />} path="games" />
                         <Route element={<Movies />} path="movies" />
                         <Route element={<Music />} path="music" />
+                        <Route
+                            element={<SearchResults />}
+                            path="searchResults"
+                        />
                     </Routes>
                 </div>
             </div>

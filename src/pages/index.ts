@@ -10,6 +10,7 @@ import { default as Games } from './info/Games';
 import { default as LandingPage } from './info/LandingPage';
 import { default as Movies } from './info/Movies';
 import { default as Music } from './info/Music';
+import { default as SearchResults } from './info/SearchResults';
 
 // Info Pages
 
@@ -23,5 +24,6 @@ export {
     Books,
     Games,
     Movies,
-    Music
+    Music,
+    SearchResults
 }
