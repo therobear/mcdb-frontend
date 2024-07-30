@@ -1,0 +1,56 @@
+@use '_colors';
+
+.landing-title {
+    color: colors.$landing-page-title;
+    font-weight: bold;
+    font-size: 2rem;
+    border-bottom: 1px solid colors.$landing-page-title;
+}
+
+.landing-tile {
+    background-color: colors.$secondary-background;
+    margin: 1rem;
+    padding: 1rem;
+    width: 80%;
+    border-radius: 0.4rem;
+}
+
+.landing-recently-added-tile {
+    border-bottom: 1px solid colors.$landing-page-title;
+}
+
+.landing-img-container {
+    position: relative;
+    width: 10rem;
+}
+
+.landing-img-container:hover .landing-img-hover{
+    opacity: 1;
+}
+
+.landing-img {
+    width: 100%;
+    max-width: 10rem;
+    height: auto;
+}
+
+.landing-img-hover {
+    opacity: 0;
+    transition: 0.25s ease;
+    display: block;
+    background: colors.$gray-gradient;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    -ms-transform: translate(-50%, -50%);
+}
+
+.landing-img-hover-text {
+    color: colors.$secondary-background;
+    position: absolute;
+    margin-left: 0.5rem;
+    top: 75%
+}

@@ -17,11 +17,11 @@ import {
 const App = () => {
     return (
         <BrowserRouter>
-            <div className="row" style={{ height: '100vh' }}>
+            <div className="row main-row">
                 <div className="col-lg-1 sidebar-main">
                     <SideMenu />
                 </div>
-                <div className="col-lg-11">
+                <div className="col-lg-11 display-container">
                     <Routes>
                         <Route element={<LandingPage />} path="/" />
                         <Route element={<CreateGame />} path="createGame" />

@@ -1,6 +1,7 @@
 @use '_colors';
 @use '_sidebar';
 @use '_searchResultTile';
+@use '_landingPage';
 
 body {
     margin: 0;
@@ -33,4 +34,13 @@ body {
   .button-warning {
     @extend .button-base;
     background-color: colors.$button-background-warning;
+  }
+
+  .main-row {
+    height: 100vh;
+  }
+
+  .display-container {
+    height: 100vh;
+    overflow: auto;
   }
