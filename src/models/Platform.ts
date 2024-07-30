@@ -1,5 +1,9 @@
 export class Platform {
-    constructor(private _releaseDate: string, private _platformName: string) {
+    constructor(private _id: string, private _releaseDate: string, private _platformName: string) {
+    }
+
+    public get id(): string {
+        return this._id;
     }
 
     public get releaseDate(): string {
