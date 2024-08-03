@@ -2,6 +2,8 @@
 @use '_sidebar';
 @use '_searchResultTile';
 @use '_landingPage';
+@use '_viewPage';
+@use '_modal';
 
 body {
     margin: 0;
@@ -23,6 +25,8 @@ body {
     padding: 0.5rem;
     border: none;
     font-size: medium;
+    border-radius: 0.4rem;
+    cursor: pointer;
   }
 
   .button-standard {

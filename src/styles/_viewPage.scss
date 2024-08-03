@@ -1,0 +1,46 @@
+@use '_colors' as colors;
+
+.view-page-container {
+    background-color: colors.$secondary-background;
+    border-radius: 0.4rem;
+    width: 80%;
+}
+
+.view-page-title {
+    width: 100%;
+    border-bottom: 1px solid colors.$secondary-underline;
+    font-weight: bold;
+    font-size: 2.5rem;
+}
+
+.view-page-sub-section-title {
+    width: 100%;
+    border-bottom: 1px solid colors.$secondary-underline;
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.view-page-cover-img {
+    max-width: 19rem;
+}
+
+.view-page-img-hover  {
+    cursor: pointer;
+}
+
+.view-page-screenshot-row {
+    margin: 1rem;
+}
+
+.view-page-screenshot-img {
+    max-width: 12rem;
+    margin: 0.5rem;
+}
+
+.view-page-li {
+    list-style: square;
+}
+
+.view-page-buttons {
+    border-top: 1px solid colors.$secondary-underline;
+}

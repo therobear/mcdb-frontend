@@ -1,0 +1,18 @@
+@use '_colors' as colors;
+
+.modal-background {
+    position: fixed;
+    background-color: colors.$modal-background;
+    inset: 0;
+    backdrop-filter: blur(5px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-close-button {
+    color: white;
+    background: none;
+    border: none;
+    cursor: pointer;
+}

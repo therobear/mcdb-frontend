@@ -13,6 +13,9 @@ import { default as Movies } from './info/Movies';
 import { default as Music } from './info/Music';
 import { default as SearchResults } from './info/SearchResults';
 
+// View Pages
+import { default as ViewGame } from './view/ViewGame';
+
 export {
     LandingPage,
     CreateGame,
@@ -24,5 +27,6 @@ export {
     Games,
     Movies,
     Music,
-    SearchResults
+    SearchResults,
+    ViewGame
 }
