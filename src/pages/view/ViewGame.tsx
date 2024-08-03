@@ -130,7 +130,7 @@ const ViewGame = () => {
             </div>
             {showModal && (
                 <Modal
-                    image={`${selectedImage}`}
+                    element=<img src={`${selectedImage}`} />
                     onClose={() => modalState('hide')}
                 />
             )}
