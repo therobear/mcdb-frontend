@@ -27,17 +27,33 @@ body {
     font-size: medium;
     border-radius: 0.4rem;
     cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .button-icon {
+    margin-right: 0.5rem;
   }
 
   .button-standard {
     @extend .button-base;
     background-color: colors.$button-background-standard;
-    
+  }
+
+  .button-standard:disabled {
+    background-color: colors.$button-background-standard-disabled;
+    cursor: not-allowed;
   }
 
   .button-warning {
     @extend .button-base;
     background-color: colors.$button-background-warning;
+  }
+
+  .button-warning:disabled {
+    background-color: colors.$button-background-warning-disabled;
+    cursor: not-allowed;
   }
 
   .main-row {
@@ -47,4 +63,41 @@ body {
   .display-container {
     height: 100vh;
     overflow: auto;
+  }
+
+  .badge {
+    background-color: colors.$main-background;
+    border-radius: 1rem;
+    padding: 0.5rem 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:0.5rem;
+  }
+
+  table {
+    background-color: colors.$secondary-background;
+    border-radius: 0.4rem;
+    padding: 0.5rem;
+    width:100%;
+  }
+
+  th, td {
+    text-align: left;
+    border-bottom: 1px solid colors.$secondary-underline;
+  }
+
+  tr:last-child td {
+    border: none;
+  }
+
+  input[type=text] {
+    padding: 0.5rem;
+    border-radius: 0.4rem;
+    border: 1px solid colors.$secondary-underline;
+    width: 95%;
+  }
+
+  input[type=text]:focus {
+    outline: 1px solid colors.$secondary-underline;;
   }

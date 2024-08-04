@@ -12,6 +12,7 @@ import { default as LandingPage } from './info/LandingPage';
 import { default as Movies } from './info/Movies';
 import { default as Music } from './info/Music';
 import { default as SearchResults } from './info/SearchResults';
+import { default as Platforms } from './info/Platforms';
 
 // View Pages
 import { default as ViewGame } from './view/ViewGame';
@@ -28,5 +29,6 @@ export {
     Movies,
     Music,
     SearchResults,
-    ViewGame
+    ViewGame,
+    Platforms
 }

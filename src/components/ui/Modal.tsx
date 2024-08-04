@@ -1,18 +1,30 @@
-import React, { useState } from 'react';
-import { X } from 'lucide-react';
+import { ReactNode } from 'react';
 
 type ModalProps = {
-    element: React.ReactNode;
+    children: ReactNode;
     onClose: Function;
+    allowCloseOnClick?: boolean;
 };
 
-const Modal = ({ element, onClose }: ModalProps) => {
+const Modal = ({ children, onClose, allowCloseOnClick = true }: ModalProps) => {
+    const setPointerClass = () => {
+        switch (allowCloseOnClick) {
+            case true:
+                return 'modal-allow-close';
+
+            case false:
+                return 'modal-no-close';
+        }
+    };
+
     return (
         <div
-            className="row modal-background view-page-img-hover"
-            onClick={() => onClose()}
+            className={`row modal-background ${setPointerClass()}`}
+            onClick={() => {
+                if (allowCloseOnClick) onClose();
+            }}
         >
-            {element}
+            {children}
         </div>
     );
 };

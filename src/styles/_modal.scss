@@ -10,9 +10,33 @@
     justify-content: center;
 }
 
-.modal-close-button {
-    color: white;
-    background: none;
-    border: none;
+.modal-title {
+    margin-bottom: 1rem;
+    font-weight: bold;
+    font-size: x-large;
+    border-bottom: solid colors.$secondary-underline 1px;
+}
+
+
+.modal-container {
+    background-color: colors.$secondary-background;
+    padding: 1rem;
+    border-radius: 0.4rem;
+    width: 20%;
+}
+
+.modal-allow-close {
     cursor: pointer;
+}
+
+.modal-no-close {
+    cursor: default;
+}
+
+.modal-buttons-div {
+    border-top: solid colors.$secondary-underline 1px;
+}
+
+.modal-content {
+    margin-bottom: 1.25rem;
 }

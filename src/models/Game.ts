@@ -1,7 +1,7 @@
-import { Platform } from "./Platform";
+import { MobyPlatform } from "./MobyPlatform";
 
 export class Game {
-    constructor(private _id: string, private _title: string, private _description: string, private _coverUrl: string, private _platforms: Platform[], private _screenshots: string[], private _ownedPlatforms: string[]) {
+    constructor(private _id: string, private _title: string, private _description: string, private _coverUrl: string, private _platforms: MobyPlatform[], private _screenshots: string[], private _ownedPlatforms: string[]) {
     }
 
     public get id() {
@@ -36,7 +36,7 @@ export class Game {
         return this._platforms;
     }
 
-    public set platforms(value: Platform[]) {
+    public set platforms(value: MobyPlatform[]) {
         this._platforms = value;
     }
 

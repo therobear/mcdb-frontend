@@ -13,6 +13,7 @@ import {
     Music,
     SearchResults,
     ViewGame,
+    Platforms,
 } from './pages';
 
 const App = () => {
@@ -39,6 +40,7 @@ const App = () => {
                         <Route element={<Games />} path="games" />
                         <Route element={<Movies />} path="movies" />
                         <Route element={<Music />} path="music" />
+                        <Route element={<Platforms />} path="platforms" />
                         <Route
                             element={<SearchResults />}
                             path="searchResults"

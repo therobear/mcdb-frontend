@@ -1,5 +1,13 @@
 import React, { Fragment, useState } from 'react';
 import { Link } from 'react-router-dom';
+import {
+    Gamepad2,
+    Clapperboard,
+    Disc3,
+    BookText,
+    CircleHelp,
+    TableProperties,
+} from 'lucide-react';
 
 const SideMenu = () => {
     const [activeLink, setActiveLink] = useState('');
@@ -22,31 +30,57 @@ const SideMenu = () => {
             <Fragment>
                 <ul className="sidebar-nav">
                     <li className={`${setLIClass('games')}`}>
-                        <Link to="games" onClick={() => setActiveLink('games')}>
-                            Games
+                        <Link
+                            to="games"
+                            className="sidebar-nav-links"
+                            onClick={() => setActiveLink('games')}
+                        >
+                            <Gamepad2 /> Games
                         </Link>
                     </li>
                     <li className={`${setLIClass('movies')}`}>
                         <Link
                             to="movies"
+                            className="sidebar-nav-links"
                             onClick={() => setActiveLink('movies')}
                         >
-                            Movies
+                            <Clapperboard /> Movies
                         </Link>
                     </li>
                     <li className={`${setLIClass('music')}`}>
-                        <Link to="music" onClick={() => setActiveLink('music')}>
-                            Music
+                        <Link
+                            to="music"
+                            className="sidebar-nav-links"
+                            onClick={() => setActiveLink('music')}
+                        >
+                            <Disc3 /> Music
                         </Link>
                     </li>
                     <li className={`${setLIClass('books')}`}>
-                        <Link to="books" onClick={() => setActiveLink('books')}>
-                            Books
+                        <Link
+                            to="books"
+                            className="sidebar-nav-links"
+                            onClick={() => setActiveLink('books')}
+                        >
+                            <BookText /> Books
+                        </Link>
+                    </li>
+                    <li className={`${setLIClass('platforms')}`}>
+                        <Link
+                            to="platforms"
+                            className="sidebar-nav-links"
+                            onClick={() => setActiveLink('platforms')}
+                        >
+                            <TableProperties /> Platforms
                         </Link>
                     </li>
                     <li className={`${setLIClass('about')}`}>
-                        <Link to="about" onClick={() => setActiveLink('about')}>
-                            About
+                        <Link
+                            to="about"
+                            className="sidebar-nav-links"
+                            onClick={() => setActiveLink('about')}
+                        >
+                            <CircleHelp /> About
                         </Link>
                     </li>
                 </ul>

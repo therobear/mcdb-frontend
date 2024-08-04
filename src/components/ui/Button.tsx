@@ -1,19 +1,19 @@
-import React from 'react';
+import { ButtonHTMLAttributes, ReactNode } from 'react';
 
 type ButtonProps = {
-    text: String;
     callback: Function;
-    buttonType: String;
-    displayIcon?: Boolean;
-    icon?: String;
+    buttonType: string;
+    actionType?: ButtonHTMLAttributes<HTMLButtonElement>['type'];
+    disabled?: any;
+    children: ReactNode;
 };
 
 const Button = ({
-    text,
     callback,
     buttonType = 'standard',
-    displayIcon = false,
-    icon = '',
+    actionType = 'button',
+    disabled,
+    children,
 }: ButtonProps) => {
     const setButtonClass = () => {
         switch (buttonType) {
@@ -29,8 +29,13 @@ const Button = ({
     };
 
     return (
-        <button className={`${setButtonClass()}`} onClick={() => callback()}>
-            {text}
+        <button
+            type={actionType}
+            disabled={disabled}
+            className={`${setButtonClass()}`}
+            onClick={() => callback()}
+        >
+            {children}
         </button>
     );
 };

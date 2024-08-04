@@ -1,24 +1,12 @@
 export class Platform {
-    constructor(private _id: string, private _releaseDate: string, private _platformName: string) {
+    constructor(public _id: string | undefined, private _name: string) {
     }
 
-    public get id(): string {
-        return this._id;
+    public get name(): string {
+        return this._name;
     }
 
-    public get releaseDate(): string {
-        return this._releaseDate;
-    }
-
-    public set releaseDate(value: string) {
-        this._releaseDate = value;
-    }
-
-    public get platformName(): string {
-        return this._platformName;
-    }
-
-    public set platformName(value: string) {
-        this._platformName = value;
+    public set name(value: string) {
+        this._name = value;
     }
 }

@@ -1,9 +1,10 @@
 import { useState } from 'react';
 import { useGetGameInfo } from '../../hooks';
 import { useParams, useNavigate } from 'react-router-dom';
-import { Platform } from '../../models';
+import { MobyPlatform } from '../../models';
 import { dateFormatter } from '../../utilities';
 import { Button, Modal } from '../../components/ui';
+import { ArrowBigLeft, Pencil } from 'lucide-react';
 
 const ViewGame = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
@@ -59,7 +60,7 @@ const ViewGame = () => {
                             Released On
                             <ul className="view-page-li">
                                 {gameInfo.platforms.map(
-                                    (platform: Platform, index: number) => (
+                                    (platform: MobyPlatform, index: number) => (
                                         <li key={`platform-${index}`}>
                                             {platform.platformName} -{' '}
                                             {dateFormatter(
@@ -82,7 +83,10 @@ const ViewGame = () => {
                             >
                                 {gameInfo.ownedPlatforms.map(
                                     (platform: string, index: number) => (
-                                        <div key={`platform-${index}`}>
+                                        <div
+                                            key={`platform-${index}`}
+                                            className="badge"
+                                        >
                                             {platform}
                                         </div>
                                     )
@@ -116,23 +120,22 @@ const ViewGame = () => {
                     </div>
                     <div className="row view-page-buttons end-lg">
                         <Button
-                            text="Go Back"
                             callback={() => navigate('/games')}
                             buttonType="standard"
-                        />
-                        <Button
-                            text="Edit Game"
-                            callback={() => {}}
-                            buttonType="warning"
-                        />
+                        >
+                            <ArrowBigLeft className="button-icon" /> Go Back
+                        </Button>
+                        <Button callback={() => {}} buttonType="warning">
+                            <Pencil size={20} className="button-icon" /> Edit
+                            Game
+                        </Button>
                     </div>
                 </div>
             </div>
             {showModal && (
-                <Modal
-                    element=<img src={`${selectedImage}`} />
-                    onClose={() => modalState('hide')}
-                />
+                <Modal onClose={() => modalState('hide')}>
+                    <img src={`${selectedImage}`} />
+                </Modal>
             )}
         </div>
     );

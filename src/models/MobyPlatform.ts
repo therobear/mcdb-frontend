@@ -1,15 +1,15 @@
 export class MobyPlatform {
-    constructor(private _firstReleaseDate: String, private _platformId: String, private _platformName: String){}
+    constructor(private _releaseDate: string, private _platformId: string, private _platformName: string){}
 
-    public get firstReleaseDate(): String {
-        return this._firstReleaseDate;
+    public get releaseDate(): string {
+        return this._releaseDate;
     }
 
-    public get platformId(): String {
+    public get platformId(): string {
         return this._platformId;
     }
 
-    public get platformName(): String {
+    public get platformName(): string {
         return this._platformName;
     }
 }

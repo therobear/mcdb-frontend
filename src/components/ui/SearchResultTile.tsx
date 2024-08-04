@@ -25,10 +25,11 @@ const SearchResultTile = ({
                     />
                     <div className="row end-lg bottom-lg search-result-button-div">
                         <Button
-                            text="Add Game"
                             callback={() => console.log('Clicked You')}
                             buttonType="standard"
-                        />
+                        >
+                            Add Game
+                        </Button>
                     </div>
                 </div>
             </div>
