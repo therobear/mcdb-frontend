@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { mcdbServices } from "../../api";
+import { mcdbServices } from "../../../api/";
 
 const getPlatformList = async () => {
     return await mcdbServices.platformList();
@@ -11,7 +11,7 @@ const useGetPlatformList = (options: object) => {
         queryFn: () => getPlatformList().then((data) => data),
         refetchOnWindowFocus: false,
         ...options
-    })
+    });
 }
 
 export default useGetPlatformList;

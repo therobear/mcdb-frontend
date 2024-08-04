@@ -13,6 +13,7 @@ import { default as Movies } from './info/Movies';
 import { default as Music } from './info/Music';
 import { default as SearchResults } from './info/SearchResults';
 import { default as Platforms } from './info/Platforms';
+import { default as GameGenres } from './info/GameGenres';
 
 // View Pages
 import { default as ViewGame } from './view/ViewGame';
@@ -30,5 +31,6 @@ export {
     Music,
     SearchResults,
     ViewGame,
-    Platforms
+    Platforms,
+    GameGenres
 }

@@ -1,9 +1,10 @@
 import axios from 'axios';
-import { Game, Platform } from '../models';
+import { Game, Platform, GameGenre } from '../models';
 import { toast } from 'react-hot-toast';
-import { MCDBSERVICEURL, GAMESSERVICE, PLATFORMSERVICE } from './apiConfig';
+import { MCDBSERVICEURL, GAMESSERVICE, PLATFORMSERVICE, GAMEGENRESSERVICE } from './apiConfig';
 
 const mcdbServices = {
+    // Game 
     gamesList: async () => {
         return await axios.get(`${MCDBSERVICEURL}/${GAMESSERVICE}`).then((response) => 
             response.data
@@ -41,6 +42,8 @@ const mcdbServices = {
             toast.error(`Error deleting game.\n${error.response.data}`);
         });
     },
+    
+    //Platform
     platformList: async () => {
         return await axios.get(`${MCDBSERVICEURL}/${PLATFORMSERVICE}`).then((response) => 
             response.data
@@ -81,6 +84,50 @@ const mcdbServices = {
             return response.data;
         }).catch((error) => {
             toast.error(`Error deleting platform.\n${error.response.data}`);
+        });
+    },
+
+    //Game Genre
+    gameGenreList: async () => {
+        return await axios.get(`${MCDBSERVICEURL}/${GAMEGENRESSERVICE}`).then((response) => 
+            response.data
+        ).catch((error) => {
+            toast.error(`Error retrieving game genres list.\n${error.response.data}`);
+        });
+    },
+    gameGenreInfo: async (genreId: string) => {
+        return await axios.get(`${MCDBSERVICEURL}/${GAMEGENRESSERVICE}/${genreId}`).then((response) =>
+            response.data
+        ).catch((error) => {
+            toast.error(`Error retreving game genre information`);
+        });
+    },
+    createGameGenre: async (gameGenre: GameGenre) => {
+        const ggData = { name: gameGenre.name };
+
+        return await axios.post(`${MCDBSERVICEURL}/${GAMEGENRESSERVICE}`, ggData).then((response) => {
+            toast.success(`Game genre ${gameGenre.name} was added successfuly.`);
+            return response.data;
+        }).catch((error) => {
+            toast.error(`Error creating game genre.\n${error.response.data}`);
+        });
+    },
+    updateGameGenre: async (gameGenre: GameGenre) => {
+        const ggData = { name: gameGenre.name };
+        
+        return await axios.put(`${MCDBSERVICEURL}/${GAMEGENRESSERVICE}/${gameGenre._id}`, ggData).then((response) => {
+            toast.success(`Game genre was updated successfuly.`);
+            return response.data;
+        }).catch((error) => {
+            toast.error(`Error updating game genre.\n${error.response.data}`);
+        });
+    },
+    deleteGameGenre: async (genreId: string) => {
+        return await axios.delete(`${MCDBSERVICEURL}/${GAMEGENRESSERVICE}/${genreId}`).then((response) => {
+            toast.success(`Game genre was successfuly deleted.`);
+            return response.data;
+        }).catch((error) => {
+            toast.error(`Error deleting game genre.\n${error.response.data}`);
         });
     }
 }

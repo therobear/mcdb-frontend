@@ -2,84 +2,84 @@ import { useEffect, useState } from 'react';
 import { Button } from '../../components/ui';
 import { FilePlus, Pencil, Trash2 } from 'lucide-react';
 import { Modal } from '../../components/ui';
-import { useGetPlatformList } from '../../hooks';
+import { GameGenre } from '../../models';
+import { useGetGameGenreList } from '../../hooks';
 import {
-    CreatePlaformModal,
-    DeletePlatformModal,
-    UpdatePlatformModal,
+    CreateGameGenreModal,
+    DeleteGameGenreModal,
+    UpdateGameGenreModal,
 } from '../../components/modal';
-import { Platform } from '../../models';
 
-const Platforms = () => {
+const GameGenres = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [modalDisplay, setModalDistplay] = useState<string>('');
-    const [platformList, setPlatformList] = useState<Platform[]>([]);
-    const [selectedPlatform, setSelectedPlatform] = useState<Platform>();
+    const [genreList, setGenreList] = useState<GameGenre[]>([]);
+    const [selectedGenre, setSelectedGenre] = useState<GameGenre>();
 
     const {
-        data: platforms,
-        error: errorPlatformList,
-        isLoading: isLoadingPlatformList,
-    } = useGetPlatformList({});
+        data: gameGenres,
+        error: errorGameGenres,
+        isLoading: isLoadingGameGenres,
+    } = useGetGameGenreList({});
 
     useEffect(() => {
-        setPlatformList(platforms);
-    }, [platforms]);
+        setGenreList(gameGenres);
+    }, [gameGenres]);
 
     const setModalContent = () => {
         switch (modalDisplay) {
             case 'CREATE':
                 return (
-                    <CreatePlaformModal
+                    <CreateGameGenreModal
                         callback={() => setShowModal(!showModal)}
                     />
                 );
 
             case 'DELETE':
                 return (
-                    <DeletePlatformModal
-                        id={selectedPlatform?._id}
+                    <DeleteGameGenreModal
+                        id={selectedGenre?._id}
                         callback={() => setShowModal(!showModal)}
                     />
                 );
 
             case 'UPDATE':
                 return (
-                    <UpdatePlatformModal
-                        platform={selectedPlatform!}
+                    <UpdateGameGenreModal
+                        genre={selectedGenre!}
                         callback={() => setShowModal(!showModal)}
                     />
                 );
         }
     };
 
-    if (errorPlatformList) {
-        return <div>Error Loading Platform List</div>;
+    if (errorGameGenres) {
+        return <div>Error Loading Game Genre List</div>;
     }
 
-    if (isLoadingPlatformList) {
-        return <div>Loading Platform List</div>;
+    if (isLoadingGameGenres) {
+        return <div>Loading Game Genre List</div>;
     }
 
     const renderList = () => {
-        if (platformList && platformList.length === 0) {
+        if (genreList && genreList.length === 0) {
             return (
                 <tr>
-                    <td>No platforms entered.</td>
+                    <td>No game genres entered.</td>
                     <td></td>
                 </tr>
             );
-        } else {
-            return platformList.map((platform: Platform, index: number) => (
-                <tr key={`platform-${platform.name}-${index}`}>
-                    <td>{platform.name}</td>
+        } else
+            return genreList.map((genre: GameGenre, index: number) => (
+                <tr key={`genre-${genre.name}-${index}`}>
+                    <td>{genre.name}</td>
                     <td className="row center-lg">
                         <Button
                             buttonType="standard"
                             callback={() => {
                                 setModalDistplay('UPDATE');
                                 setShowModal(true);
-                                setSelectedPlatform(platform);
+                                setSelectedGenre(genre);
                             }}
                         >
                             <Pencil size={20} className="button-icon" /> Edit
@@ -89,7 +89,7 @@ const Platforms = () => {
                             callback={() => {
                                 setModalDistplay('DELETE');
                                 setShowModal(true);
-                                setSelectedPlatform(platform);
+                                setSelectedGenre(genre);
                             }}
                         >
                             <Trash2 className="button-icon" /> Delete
@@ -97,12 +97,11 @@ const Platforms = () => {
                     </td>
                 </tr>
             ));
-        }
     };
 
     return (
         <div>
-            <div className="landing-title">Platforms</div>
+            <div className="landing-title">Game Genres</div>
             <div className="row center-lg">
                 <div className="landing-container">
                     <div>
@@ -113,8 +112,8 @@ const Platforms = () => {
                                 setShowModal(true);
                             }}
                         >
-                            <FilePlus className="button-icon" /> Create New
-                            Platform
+                            <FilePlus className="button-icon" /> Create New Game
+                            Genre
                         </Button>
                     </div>
                     <div>
@@ -152,4 +151,4 @@ const Platforms = () => {
     );
 };
 
-export default Platforms;
+export default GameGenres;

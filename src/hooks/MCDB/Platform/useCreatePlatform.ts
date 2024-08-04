@@ -6,7 +6,7 @@ const createPlatform = async (platform: Platform) => {
     await mcdbServices.createPlatform(platform);
 }
 
-const useCreatePlatform = (options: Object) => {
+const useCreatePlatform = (options: object) => {
     return useMutation({
         mutationKey: ['createPlatform'],
         mutationFn: createPlatform,

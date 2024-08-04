@@ -14,6 +14,7 @@ import {
     SearchResults,
     ViewGame,
     Platforms,
+    GameGenres,
 } from './pages';
 
 const App = () => {
@@ -41,6 +42,7 @@ const App = () => {
                         <Route element={<Movies />} path="movies" />
                         <Route element={<Music />} path="music" />
                         <Route element={<Platforms />} path="platforms" />
+                        <Route element={<GameGenres />} path="gameGenres" />
                         <Route
                             element={<SearchResults />}
                             path="searchResults"

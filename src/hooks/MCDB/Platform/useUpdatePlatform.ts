@@ -11,7 +11,7 @@ const useUpdatePlatform = (options: object) => {
         mutationKey: ['updatePlatform'],
         mutationFn: updatePlatform,
         ...options
-    })
+    });
 }
 
 export default useUpdatePlatform;

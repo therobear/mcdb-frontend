@@ -7,6 +7,7 @@ const MCDBSERVICEURL: string = `${SCHEME}://${MCDBSERVICEDOMAIN}:${MCDBSERVICEPO
 // MCDB Services
 const GAMESSERVICE: string = 'games';
 const PLATFORMSERVICE: string = 'platforms'
+const GAMEGENRESSERVICE: string = 'gameGenres';
 
 // Moby Games Services
 const MOBYBASE: string = 'moby';
@@ -22,6 +23,7 @@ export {
     MCDBSERVICEURL,
     GAMESSERVICE,
     PLATFORMSERVICE,
+    GAMEGENRESSERVICE,
     MOBYBASE,
     MOBYSEARCHGAMES,
     MOBYSEARCHGROUP,

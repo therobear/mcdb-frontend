@@ -1,6 +1,7 @@
 // MCDB Models
 import { Platform } from './Platform';
 import { Game } from './Game';
+import { GameGenre } from './GameGenre';
 
 // Moby Games Models
 import { MobyGameDTO } from "./MobyGameDTO";
@@ -10,5 +11,6 @@ export {
     MobyGameDTO,
     MobyPlatform,
     Platform,
-    Game
+    Game,
+    GameGenre
 }

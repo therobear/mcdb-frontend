@@ -10,7 +10,7 @@ const useDeletePlatform = (options: object) => {
         mutationKey: [`deletePlatform`],
         mutationFn: deletePlatform,
         ...options
-    })
+    });
 }
 
 export default useDeletePlatform;

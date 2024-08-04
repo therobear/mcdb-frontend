@@ -74,6 +74,15 @@ const SideMenu = () => {
                             <TableProperties /> Platforms
                         </Link>
                     </li>
+                    <li className={`${setLIClass('gamegenres')}`}>
+                        <Link
+                            to="gameGenres"
+                            className="sidebar-nav-links"
+                            onClick={() => setActiveLink('gamegenres')}
+                        >
+                            <Gamepad2 /> Genres
+                        </Link>
+                    </li>
                     <li className={`${setLIClass('about')}`}>
                         <Link
                             to="about"
