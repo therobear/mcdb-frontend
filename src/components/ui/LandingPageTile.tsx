@@ -15,7 +15,7 @@ const LandingPageTile = ({ tileTitle, mediaType, mediaList }: TileProps) => {
                     <LandingPageTileImg
                         key={`image-${item.title}-${index}`}
                         itemType="item"
-                        itemId={item.id}
+                        itemId={item._id!}
                         coverUrl={item.coverUrl}
                         title={item.title}
                         platform={

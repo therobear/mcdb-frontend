@@ -1,11 +1,8 @@
 import { MobyPlatform } from "./MobyPlatform";
+import { GameGenre } from "./GameGenre";
 
 export class Game {
-    constructor(private _id: string, private _title: string, private _description: string, private _coverUrl: string, private _platforms: MobyPlatform[], private _screenshots: string[], private _ownedPlatforms: string[]) {
-    }
-
-    public get id() {
-        return this._id;
+    constructor(public _id: string | undefined, private _title: string, private _description: string, private _coverUrl: string, private _platforms: MobyPlatform[], private _screenshots: string[], private _ownedPlatforms: string[], private _genres: GameGenre[], private _createdDate: Date, private _modifiedDate: Date) {
     }
 
     public get title() {
@@ -54,5 +51,21 @@ export class Game {
 
     public set ownedPlatforms(value: string[]) {
         this._ownedPlatforms = value;
+    }
+
+    public get genres() {
+        return this._genres;
+    }
+
+    public set genres(value: GameGenre[]) {
+        this._genres = value;
+    }
+
+    public get createdDate() {
+        return this._createdDate;
+    }
+
+    public get modifiedDate() {
+        return this._modifiedDate;
     }
 }

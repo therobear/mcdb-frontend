@@ -28,7 +28,7 @@ const mcdbServices = {
         });
     },
     updateGame: async (game: Game) => {
-        return await axios.put(`${MCDBSERVICEURL}/${GAMESSERVICE}/${game.id.toString()}`, game).then((response) => {
+        return await axios.put(`${MCDBSERVICEURL}/${GAMESSERVICE}/${game._id!.toString()}`, game).then((response) => {
             toast.success(`Platform ${game.title} was updated successfuly.`);
             return response.data;
         }).catch((error) => {
