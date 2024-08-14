@@ -4,6 +4,7 @@ import { default as UpdatePlatformModal } from './UpdatePlatformModal';
 import { default as CreateGameGenreModal } from './CreateGameGenreModal';
 import { default as DeleteGameGenreModal } from './DeleteGameGenreModal';
 import { default as UpdateGameGenreModal } from './UpdateGameGenreModal';
+import { default as MobyGamesSearchModal } from './MobyGamesSearchModal';
 
 export {
     CreatePlaformModal,
@@ -11,5 +12,6 @@ export {
     UpdatePlatformModal,
     CreateGameGenreModal,
     DeleteGameGenreModal,
-    UpdateGameGenreModal
+    UpdateGameGenreModal,
+    MobyGamesSearchModal
 }

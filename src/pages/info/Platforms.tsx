@@ -57,7 +57,7 @@ const Platforms = () => {
         return <div>Error Loading Platform List</div>;
     }
 
-    if (isLoadingPlatformList) {
+    if (isLoadingPlatformList || !platformList) {
         return <div>Loading Platform List</div>;
     }
 

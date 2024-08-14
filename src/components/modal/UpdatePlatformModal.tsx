@@ -14,15 +14,15 @@ const UpdatePlatformModal = ({
     platform,
     callback,
 }: UpdatePlatformModalType) => {
-    const [selectedPlatform, setSelectedPlatform] = useState<any>({
-        _id: '',
-        name: '',
-    });
+    const [platformName, setPlatformName] = useState<string>('');
+    const [platformAbbrev, setPlatformAbbrev] = useState<string>('');
+    const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
     const queryClient = useQueryClient();
 
     useEffect(() => {
-        setSelectedPlatform({ ...platform });
+        setPlatformName(platform.name);
+        setPlatformAbbrev(platform.abbreviation);
     }, [platform]);
 
     const { mutate: mutateUpdatePlatform } = useUpdatePlatform({
@@ -35,21 +35,27 @@ const UpdatePlatformModal = ({
         },
     });
 
-    const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setSelectedPlatform({ _id: platform._id, name: e.target.value });
+    const handleDisableButton = () => {
+        if (platformName !== '' && platformAbbrev !== '') {
+            setDisabledButton(false);
+        } else {
+            setDisabledButton(true);
+        }
     };
 
     const handleSubmit = () => {
         const submittedPlatform = new Platform(
-            selectedPlatform._id,
-            selectedPlatform.name
+            platform._id,
+            platformName,
+            platformAbbrev
         );
 
         mutateUpdatePlatform(submittedPlatform);
     };
 
     const closeModal = () => {
-        setSelectedPlatform(undefined);
+        setPlatformName('');
+        setPlatformAbbrev('');
 
         callback();
     };
@@ -69,14 +75,24 @@ const UpdatePlatformModal = ({
                     </div>
                     <input
                         type="text"
-                        onChange={handleTextChange}
-                        value={selectedPlatform?.name}
+                        onChange={(e) => setPlatformName(e.target.value)}
+                        onBlur={() => handleDisableButton()}
+                        value={platformName || ''}
+                    />
+                    <div>
+                        <b>Platform Abbreviation</b>
+                    </div>
+                    <input
+                        type="text"
+                        onChange={(e) => setPlatformAbbrev(e.target.value)}
+                        onBlur={() => handleDisableButton()}
+                        value={platformAbbrev || ''}
                     />
                 </div>
                 <div className="row end-lg modal-buttons-div">
                     <Button
                         buttonType="standard"
-                        disabled={selectedPlatform?.name === ''}
+                        disabled={disabledButton}
                         callback={() => {}}
                         actionType="submit"
                     >

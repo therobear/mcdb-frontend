@@ -16,15 +16,13 @@ const LandingPageTileImg = ({
     platform,
 }: TileProps) => {
     return (
-        <Link to={`${itemType}/${itemId}`}>
-            <div className="landing-img-container">
-                <img className="landing-img" src={`${coverUrl}`} alt="" />
-                <div className="landing-img-hover">
-                    <div className="landing-img-hover-text">
-                        {title}
-                        <br></br>
-                        {platform !== '' ? platform : null}
-                    </div>
+        <Link to={`/${itemType}/${itemId}`} className="landing-img-container">
+            <img className="landing-img" src={`${coverUrl}`} alt="" />
+            <div className="landing-img-hover">
+                <div className="landing-img-hover-text">
+                    {title}
+                    <br></br>
+                    {platform !== '' ? platform : null}
                 </div>
             </div>
         </Link>

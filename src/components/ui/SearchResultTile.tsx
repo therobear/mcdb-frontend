@@ -4,12 +4,14 @@ type SearchResultsProps = {
     title: string;
     description: string;
     coverUrl: string;
+    callback: Function;
 };
 
 const SearchResultTile = ({
     title,
     description,
     coverUrl,
+    callback,
 }: SearchResultsProps) => {
     return (
         <div className="search-tile-main">
@@ -24,10 +26,7 @@ const SearchResultTile = ({
                         dangerouslySetInnerHTML={{ __html: description }}
                     />
                     <div className="row end-lg bottom-lg search-result-button-div">
-                        <Button
-                            callback={() => console.log('Clicked You')}
-                            buttonType="standard"
-                        >
+                        <Button callback={callback} buttonType="standard">
                             Add Game
                         </Button>
                     </div>

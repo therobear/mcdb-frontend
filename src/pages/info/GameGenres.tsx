@@ -13,7 +13,7 @@ import {
 const GameGenres = () => {
     const [showModal, setShowModal] = useState<boolean>(false);
     const [modalDisplay, setModalDistplay] = useState<string>('');
-    const [genreList, setGenreList] = useState<GameGenre[]>([]);
+    const [gameGenreList, setGameGenreList] = useState<GameGenre[]>([]);
     const [selectedGenre, setSelectedGenre] = useState<GameGenre>();
 
     const {
@@ -23,19 +23,19 @@ const GameGenres = () => {
     } = useGetGameGenreList({});
 
     useEffect(() => {
-        setGenreList(gameGenres);
+        setGameGenreList(gameGenres);
     }, [gameGenres]);
 
     const setModalContent = () => {
         switch (modalDisplay) {
-            case 'CREATE':
+            case 'CREATEGAME':
                 return (
                     <CreateGameGenreModal
                         callback={() => setShowModal(!showModal)}
                     />
                 );
 
-            case 'DELETE':
+            case 'DELETEGAME':
                 return (
                     <DeleteGameGenreModal
                         id={selectedGenre?._id}
@@ -43,7 +43,7 @@ const GameGenres = () => {
                     />
                 );
 
-            case 'UPDATE':
+            case 'UPDATEGAME':
                 return (
                     <UpdateGameGenreModal
                         genre={selectedGenre!}
@@ -57,12 +57,12 @@ const GameGenres = () => {
         return <div>Error Loading Game Genre List</div>;
     }
 
-    if (isLoadingGameGenres) {
+    if (isLoadingGameGenres || !gameGenreList) {
         return <div>Loading Game Genre List</div>;
     }
 
     const renderList = () => {
-        if (genreList && genreList.length === 0) {
+        if (gameGenreList && gameGenreList.length === 0) {
             return (
                 <tr>
                     <td>No game genres entered.</td>
@@ -70,14 +70,14 @@ const GameGenres = () => {
                 </tr>
             );
         } else
-            return genreList.map((genre: GameGenre, index: number) => (
+            return gameGenreList.map((genre: GameGenre, index: number) => (
                 <tr key={`genre-${genre.name}-${index}`}>
                     <td>{genre.name}</td>
                     <td className="row center-lg">
                         <Button
                             buttonType="standard"
                             callback={() => {
-                                setModalDistplay('UPDATE');
+                                setModalDistplay('UPDATEGAME');
                                 setShowModal(true);
                                 setSelectedGenre(genre);
                             }}
@@ -87,7 +87,7 @@ const GameGenres = () => {
                         <Button
                             buttonType="warning"
                             callback={() => {
-                                setModalDistplay('DELETE');
+                                setModalDistplay('DELETEGAME');
                                 setShowModal(true);
                                 setSelectedGenre(genre);
                             }}
@@ -108,7 +108,7 @@ const GameGenres = () => {
                         <Button
                             buttonType="standard"
                             callback={() => {
-                                setModalDistplay('CREATE');
+                                setModalDistplay('CREATEGAME');
                                 setShowModal(true);
                             }}
                         >

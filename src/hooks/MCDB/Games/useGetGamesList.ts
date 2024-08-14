@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { mcdbServices } from "../../api";
+import { mcdbServices } from "../../../api";
 
 const getGamesList = async () => {
     return await mcdbServices.gamesList();

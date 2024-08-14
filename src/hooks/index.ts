@@ -1,6 +1,6 @@
 // MCDB Hooks
-import { default as useGetGamesList } from './MCDB/useGetGamesList';
-import { default as useGetGameInfo } from './MCDB/useGetGameInfo';
+import { default as useGetGamesList } from './MCDB/Games/useGetGamesList';
+import { default as useGetGameInfo } from './MCDB/Games/useGetGameInfo';
 import { default as useGetPlatformList } from './MCDB/Platform/useGetPlatformList';
 import { default as useCreatePlatform } from './MCDB/Platform/useCreatePlatform';
 import { default as useUpdatePlatform } from './MCDB/Platform/useUpdatePlatform';

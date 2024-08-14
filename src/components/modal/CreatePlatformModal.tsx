@@ -11,12 +11,14 @@ type CreatePlatformModalType = {
 
 const CreatePlatformModal = ({ callback }: CreatePlatformModalType) => {
     const [platformName, setPlatformName] = useState<string>('');
+    const [platformAbbrev, setPlatformAbbrev] = useState<string>('');
 
     const queryClient = useQueryClient();
 
     const { mutate: mutateCreatePlatform } = useCreatePlatform({
         onSuccess: () => {
             setPlatformName('');
+            setPlatformAbbrev('');
 
             queryClient.invalidateQueries({
                 queryKey: ['platformList'],
@@ -27,7 +29,11 @@ const CreatePlatformModal = ({ callback }: CreatePlatformModalType) => {
     });
 
     const handleSubmit = async () => {
-        const platform = new Platform(undefined, platformName!);
+        const platform = new Platform(
+            undefined,
+            platformName!,
+            platformAbbrev!
+        );
 
         mutateCreatePlatform(platform);
     };
@@ -54,6 +60,13 @@ const CreatePlatformModal = ({ callback }: CreatePlatformModalType) => {
                     <input
                         type="text"
                         onChange={(e) => setPlatformName(e.target.value)}
+                    />
+                    <div>
+                        <b>Platform Abbreviation</b>
+                    </div>
+                    <input
+                        type="text"
+                        onChange={(e) => setPlatformAbbrev(e.target.value)}
                     />
                 </div>
                 <div className="row end-lg modal-buttons-div">

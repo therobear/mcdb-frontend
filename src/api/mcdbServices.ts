@@ -59,7 +59,7 @@ const mcdbServices = {
         });
     },
     createPlatform: async (platform: Platform) => {
-        const pData = {name: platform.name};
+        const pData = {name: platform.name, abbreviation: platform.abbreviation};
 
         return await axios.post(`${MCDBSERVICEURL}/${PLATFORMSERVICE}`, pData).then((response) => {
             toast.success(`Platform ${platform.name} was added successfuly.`);
@@ -69,7 +69,7 @@ const mcdbServices = {
         });
     },
     updatePlatform: async (platform: Platform) => {
-        const pData = {name: platform.name}
+        const pData = {name: platform.name, abbreviation: platform.abbreviation};
         
         return await axios.put(`${MCDBSERVICEURL}/${PLATFORMSERVICE}/${platform._id!.toString()}`, pData).then((response) => {
             toast.success(`Platform was updated successfuly.`);

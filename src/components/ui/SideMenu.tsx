@@ -7,6 +7,7 @@ import {
     BookText,
     CircleHelp,
     TableProperties,
+    LayoutList,
 } from 'lucide-react';
 
 const SideMenu = () => {
@@ -76,11 +77,11 @@ const SideMenu = () => {
                     </li>
                     <li className={`${setLIClass('gamegenres')}`}>
                         <Link
-                            to="gameGenres"
+                            to="genres"
                             className="sidebar-nav-links"
-                            onClick={() => setActiveLink('gamegenres')}
+                            onClick={() => setActiveLink('genres')}
                         >
-                            <Gamepad2 /> Genres
+                            <LayoutList /> Genres
                         </Link>
                     </li>
                     <li className={`${setLIClass('about')}`}>

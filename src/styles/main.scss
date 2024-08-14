@@ -4,6 +4,7 @@
 @use '_landingPage';
 @use '_viewPage';
 @use '_modal';
+@use'_checkbox';
 
 body {
     margin: 0;
@@ -99,5 +100,17 @@ body {
   }
 
   input[type=text]:focus {
-    outline: 1px solid colors.$secondary-underline;;
+    outline: 1px solid colors.$secondary-underline;
+  }
+
+  .create-text-area {
+    width: 100%;
+    height: 15rem;
+    resize: none;
+    border: 1px solid colors.$secondary-underline;
+    border-radius: 0.4rem;
+  }
+
+  .create-text-area:focus {
+    outline: 1px solid colors.$secondary-underline;
   }

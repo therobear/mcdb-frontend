@@ -1,14 +1,24 @@
 @use '_colors' as colors;
 
+.search-results-container {
+    height:50vh;
+    overflow-y: auto;
+  }
+
 .search-tile-main {
     background-color: colors.$secondary-background;
     margin: 1rem 1rem;
     padding: 1rem;
     border-radius: 0.4rem;
+    border: solid colors.$secondary-underline 1px;
 }
 
+.search-tile-main:hover {
+    background-color: colors.$search-highlight;
+}
+ 
 .search-result-cover {
-    width: 14rem;
+    width: 6rem;
 }
 
 .search-result-title-div {

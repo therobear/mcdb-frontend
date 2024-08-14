@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { useGetGameInfo } from '../../hooks';
 import { useParams, useNavigate } from 'react-router-dom';
-import { MobyPlatform } from '../../models';
+import { MobyPlatform, GameGenre } from '../../models';
 import { dateFormatter } from '../../utilities';
-import { Button, Modal } from '../../components/ui';
+import { Button, Modal, Badge } from '../../components/ui';
 import { ArrowBigLeft, Pencil } from 'lucide-react';
 
 const ViewGame = () => {
@@ -83,12 +83,26 @@ const ViewGame = () => {
                             >
                                 {gameInfo.ownedPlatforms.map(
                                     (platform: string, index: number) => (
-                                        <div
+                                        <Badge
                                             key={`platform-${index}`}
-                                            className="badge"
-                                        >
-                                            {platform}
-                                        </div>
+                                            label={platform}
+                                        />
+                                    )
+                                )}
+                            </div>
+                            <div className="view-page-sub-section-title">
+                                Genres
+                            </div>
+                            <div
+                                className="row"
+                                style={{ marginBottom: '2rem' }}
+                            >
+                                {gameInfo.genres.map(
+                                    (genre: GameGenre, index: number) => (
+                                        <Badge
+                                            key={`genre-${index}`}
+                                            label={genre.name}
+                                        />
                                     )
                                 )}
                             </div>
