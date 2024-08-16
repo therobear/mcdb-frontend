@@ -85,8 +85,12 @@
 }
 
 .landing-img-hover-text {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
     color: colors.$secondary-background;
     position: absolute;
     margin-left: 0.5rem;
+    width: 90%;
     top: 75%
 }

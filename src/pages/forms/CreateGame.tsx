@@ -1,23 +1,32 @@
-import { useEffect, useState, ChangeEvent } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search } from 'lucide-react';
+import { useQueryClient } from '@tanstack/react-query';
 import { Button, Checkbox, Modal } from '../../components/ui';
-import { Game, GameGenre, Platform, MobyGameDTO } from '../../models';
-import { useGetGameGenreList, useGetPlatformList } from '../../hooks';
+import {
+    Game,
+    GameGenre,
+    Platform,
+    MobyGameDTO,
+    MobyPlatform,
+} from '../../models';
+import {
+    useGetGameGenreList,
+    useGetPlatformList,
+    useCreateGame,
+} from '../../hooks';
 import { CircleCheck, CircleX, Plus, Trash2 } from 'lucide-react';
 import { MobyGamesSearchModal } from '../../components/modal';
 import { tableGenerator } from '../../utilities';
-import { tab } from '@testing-library/user-event/dist/tab';
 
 const CreateGame = () => {
-    const [selectedMobyGame, setSelectedMobyGame] = useState<MobyGameDTO>();
     const [showModal, setShowModal] = useState<boolean>(false);
-    const [gameValues, setGameValues] = useState<Game>();
     const [platformList, setPlatformList] = useState<Platform[]>();
+    const [gamePlatforms, setGamePlatforms] = useState<MobyPlatform[]>();
     const [genreList, setGenreList] = useState<GameGenre[]>();
-    const [coverUrl, setCoverUrl] = useState<string>();
-    const [screenshotList, setScreenshotList] = useState<string[]>([]);
+    const [formValues, setFormValues] = useState<any>({});
 
+    const queryClient = useQueryClient();
     const navigate = useNavigate();
 
     const {
@@ -32,23 +41,28 @@ const CreateGame = () => {
         isLoading: isLoadingGenres,
     } = useGetGameGenreList({});
 
-    useEffect(() => {
-        if (!isLoadingGenres) setGenreList(genres);
+    const { mutate: mutateCreateGame } = useCreateGame({
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ['gamesList'] });
+            navigate('/games');
+        },
+    });
 
-        if (!isLoadingPlatforms) setPlatformList(platforms);
-    }, [isLoadingPlatforms, isLoadingGenres]);
-
     useEffect(() => {
-        if (selectedMobyGame) {
-            setCoverUrl(selectedMobyGame.coverUrl);
+        if (!isLoadingGenres) {
+            setGenreList(genres);
         }
-    }, [selectedMobyGame]);
+
+        if (!isLoadingPlatforms) {
+            setPlatformList(platforms);
+        }
+    }, [isLoadingPlatforms, isLoadingGenres]);
 
     const renderOptions = (type: string) => {
         let tableContent = [];
         let tableInfo: any[] = [];
 
-        if (!isLoadingPlatforms && !isLoadingGenres) {
+        if (platformList && genreList) {
             switch (type) {
                 case 'platforms':
                     tableContent = tableGenerator(platforms, 5);
@@ -62,7 +76,13 @@ const CreateGame = () => {
                                     >
                                         <Checkbox
                                             label={info.name}
-                                            name={`platform-${info.name}`}
+                                            checked={
+                                                formValues[
+                                                    `platform_${info.abbreviation}`
+                                                ] || false
+                                            }
+                                            name={`platform_${info.abbreviation}`}
+                                            onChange={handleCheckboxChange}
                                         />
                                     </td>
                                 ))}
@@ -83,7 +103,13 @@ const CreateGame = () => {
                                     >
                                         <Checkbox
                                             label={info.name}
-                                            name={`genre-${info.name}`}
+                                            checked={
+                                                formValues[
+                                                    `genre_${info.abbreviation}`
+                                                ] || false
+                                            }
+                                            name={`genre_${info.abbreviation}`}
+                                            onChange={handleCheckboxChange}
                                         />
                                     </td>
                                 ))}
@@ -104,7 +130,13 @@ const CreateGame = () => {
                                     >
                                         <Checkbox
                                             label={info.name}
-                                            name={`owned-${info.name}`}
+                                            checked={
+                                                formValues[
+                                                    `owned_${info.abbreviation}`
+                                                ] || false
+                                            }
+                                            name={`owned_${info.abbreviation}`}
+                                            onChange={handleCheckboxChange}
                                         />
                                     </td>
                                 ))}
@@ -118,59 +150,105 @@ const CreateGame = () => {
     };
 
     const addToScreenshotList = () => {
-        let list = [...screenshotList];
+        let list: string[] = [];
+        let indexList: number[] = [];
+        let index: number;
 
-        list.push('');
+        for (let key in formValues) {
+            if (key.includes('screenshot_')) {
+                list.push(formValues[key]);
+                indexList.push(parseInt(key.toString().slice(11)));
+            }
+        }
 
-        setScreenshotList(list);
+        indexList.includes(list.length)
+            ? (index = Math.max(...indexList) + 1)
+            : (index = list.length);
+
+        setFormValues((values: object) => ({
+            ...values,
+            [`screenshot_${index}`]: '',
+        }));
     };
 
     const removeFromScreenshotList = (index: number) => {
-        let list = [...screenshotList];
+        let values = { ...formValues };
 
-        list.splice(index, 1);
+        delete values[`screenshot_${index}`];
 
-        setScreenshotList(list);
+        setFormValues(values);
     };
 
-    const onScreenshotChange = (
-        index: number,
-        e: ChangeEvent<HTMLInputElement>
-    ) => {
-        let list = [...screenshotList];
+    const fillFormValues = (selectedGame: MobyGameDTO) => {
+        let values: any = {};
+        let gPlatforms: MobyPlatform[] = [];
 
-        list[index] = e.target.value;
+        if (selectedGame) {
+            values.title = selectedGame.title;
+            values.description = selectedGame.description;
+            values.coverUrl = selectedGame.coverUrl;
 
-        setScreenshotList(list);
+            selectedGame.screenshots.map(
+                (screenshot: string, index: number) => {
+                    values[`screenshot_${index}`] = screenshot;
+                }
+            );
+
+            selectedGame.platforms.map((platform: any, index: number) => {
+                let foundPlatform = platformList?.find(
+                    (item: Platform, index: number) => {
+                        if (item.name === platform.platform_name) {
+                            let p = new MobyPlatform(
+                                platform.first_release_date,
+                                platform.platform_id,
+                                platform.platform_name
+                            );
+
+                            gPlatforms.push(p);
+
+                            return item;
+                        }
+                    }
+                );
+
+                if (foundPlatform)
+                    values[`platform_${foundPlatform?.abbreviation}`] = 'on';
+            });
+
+            setGamePlatforms(gPlatforms);
+
+            selectedGame.genres.map((genre: any, index: number) => {
+                let foundGenre = genreList?.find(
+                    (item: GameGenre, index: number) => {
+                        if (item.name === genre.genre_name) return item;
+                    }
+                );
+
+                if (foundGenre)
+                    values[`genre_${foundGenre.abbreviation}`] = 'on';
+            });
+        }
+
+        setFormValues(values);
     };
 
     const modalClose = (selectedGame: MobyGameDTO) => {
-        setSelectedMobyGame(selectedGame);
-
-        setScreenshotList(selectedGame.screenshots);
+        fillFormValues(selectedGame);
 
         setShowModal(false);
     };
 
-    const fillInGameInfo = (prop: string) => {
-        switch (prop) {
-            case 'title':
-                return selectedMobyGame
-                    ? selectedMobyGame.title
-                    : gameValues?.title;
-
-            case 'desc':
-                return selectedMobyGame
-                    ? selectedMobyGame.description
-                    : gameValues?.description;
-        }
-    };
-
     const renderScreenshotList = () => {
-        let list = [...screenshotList];
+        let list: any[] = [];
+
+        for (let key in formValues) {
+            if (key.includes('screenshot_')) {
+                list.push({ name: key.toString(), value: formValues[key] });
+            }
+        }
 
         if (list.length > 0)
-            return list.map((item: string, index: number) => (
+            return list.map((item: any, index: number) => (
                 <div
                     key={`screenshot-${index}`}
                     className="row middle-lg"
@@ -178,14 +256,21 @@ const CreateGame = () => {
                         height: '4.5rem',
                     }}
                 >
-                    <div className="col-lg-9">
-                        <input
-                            type="text"
-                            value={item!}
-                            onChange={(e) => onScreenshotChange(index, e)}
+                    <div className="2">
+                        <img
+                            src={formValues[`screenshot_${index}`]}
+                            style={{ maxWidth: '5rem' }}
                         />
                     </div>
-                    <div className="col-lg-3">
+                    <div className="col-lg-8">
+                        <input
+                            type="text"
+                            name={item.name}
+                            value={item.value! || ''}
+                            onChange={handleInputchange}
+                        />
+                    </div>
+                    <div className="col-lg-2">
                         <Button
                             buttonType="warning"
                             callback={() => removeFromScreenshotList(index)}
@@ -199,7 +284,67 @@ const CreateGame = () => {
 
     const submit = (e: any) => {
         e.preventDefault();
-        console.log(e.target);
+
+        let screenshots: string[] = [];
+        let ownedPlatforms: string[] = [];
+        let genres: GameGenre[] = [];
+
+        for (let key in formValues) {
+            if (key.includes('screenshot_')) {
+                screenshots.push(formValues[key]);
+            }
+
+            if (key.includes('owned_')) {
+                let abbrev = key.slice(6);
+
+                platformList?.find((platform: Platform, index: number) => {
+                    if (platform.abbreviation === abbrev)
+                        ownedPlatforms.push(platform.name);
+                });
+            }
+
+            if (key.includes('genre_')) {
+                let abbrev = key.slice(6);
+
+                genreList?.find((genre: GameGenre, index: number) => {
+                    if (genre.abbreviation === abbrev) genres.push(genre);
+                });
+            }
+        }
+
+        let submittedGame = new Game(
+            undefined,
+            formValues.title,
+            formValues.description,
+            formValues.coverUrl,
+            gamePlatforms!,
+            screenshots,
+            ownedPlatforms,
+            genres,
+            undefined,
+            undefined
+        );
+
+        console.log(submittedGame);
+
+        mutateCreateGame(submittedGame);
+    };
+
+    const handleInputchange = (e: any) => {
+        const name: string = e.target.name;
+        const value: any = e.target.value;
+
+        setFormValues((values: object) => ({ ...values, [name]: value }));
+    };
+
+    const handleCheckboxChange = (e: any) => {
+        let values = { ...formValues };
+
+        values.hasOwnProperty(e.target.name)
+            ? delete values[e.target.name]
+            : (values = { ...values, [e.target.name]: e.target.value });
+
+        setFormValues(values);
     };
 
     return (
@@ -225,8 +370,8 @@ const CreateGame = () => {
                                     <input
                                         type="text"
                                         name="title"
-                                        value={fillInGameInfo('title') || ''}
-                                        onChange={(e) => {}}
+                                        value={formValues?.title || ''}
+                                        onChange={handleInputchange}
                                     />
                                 </div>
                             </div>
@@ -238,7 +383,7 @@ const CreateGame = () => {
                                     <textarea
                                         className="create-text-area"
                                         name="description"
-                                        value={fillInGameInfo('desc') || ''}
+                                        value={formValues?.description || ''}
                                         onChange={(e) => {}}
                                     />
                                 </div>
@@ -246,7 +391,7 @@ const CreateGame = () => {
                             <div className="row">
                                 <div className="col">
                                     <img
-                                        src={coverUrl}
+                                        src={formValues?.coverUrl}
                                         className="landing-img"
                                     />
                                 </div>
@@ -256,11 +401,10 @@ const CreateGame = () => {
                                     </div>
                                     <input
                                         type="text"
-                                        value={coverUrl || ''}
+                                        name="coverUrl"
+                                        value={formValues?.coverUrl || ''}
                                         onChange={(e) => {}}
-                                        onBlur={(e) =>
-                                            setCoverUrl(e.target.value)
-                                        }
+                                        onBlur={handleInputchange}
                                     />
                                 </div>
                             </div>

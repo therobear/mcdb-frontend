@@ -14,16 +14,20 @@ const UpdateGameGenreModal = ({
     genre,
     callback,
 }: UpdateGameGenreModalType) => {
-    const [selectedGenre, setSelectedGenre] = useState<any>({
-        _id: '',
-        name: '',
-    });
+    const [genreName, setGenreName] = useState<string>('');
+    const [genreAbbrev, setGenreAbbrev] = useState<string>('');
+    const [disabledButton, setDisabledButton] = useState<boolean>(true);
 
     const queryClient = useQueryClient();
 
     useEffect(() => {
-        setSelectedGenre({ ...genre });
+        setGenreName(genre.name);
+        setGenreAbbrev(genre.abbreviation);
     }, [genre]);
+
+    useEffect(() => {
+        handleDisableButton();
+    }, [genreName, genreAbbrev]);
 
     const { mutate: mutateUpdateGameGenre } = useUpdateGameGenre({
         onSuccess: () => {
@@ -35,21 +39,27 @@ const UpdateGameGenreModal = ({
         },
     });
 
-    const handleTextChange = (e: ChangeEvent<HTMLInputElement>) => {
-        setSelectedGenre({ _id: genre._id, name: e.target.value });
+    const handleDisableButton = () => {
+        if (genreName !== '' && genreAbbrev !== '') {
+            setDisabledButton(false);
+        } else {
+            setDisabledButton(true);
+        }
     };
 
     const handleSubmit = () => {
         const submittedPlatform = new GameGenre(
-            selectedGenre._id,
-            selectedGenre.name
+            genre._id,
+            genreName,
+            genreAbbrev
         );
 
         mutateUpdateGameGenre(submittedPlatform);
     };
 
     const closeModal = () => {
-        setSelectedGenre(undefined);
+        setGenreName('');
+        setGenreAbbrev('');
 
         callback();
     };
@@ -69,14 +79,22 @@ const UpdateGameGenreModal = ({
                     </div>
                     <input
                         type="text"
-                        onChange={handleTextChange}
-                        value={selectedGenre?.name}
+                        onChange={(e) => setGenreName(e.target.value)}
+                        value={genreName || ''}
+                    />
+                    <div>
+                        <b>Genre Abbreviation</b>
+                    </div>
+                    <input
+                        type="text"
+                        onChange={(e) => setGenreAbbrev(e.target.value)}
+                        value={genreAbbrev || ''}
                     />
                 </div>
                 <div className="row end-lg modal-buttons-div">
                     <Button
                         buttonType="standard"
-                        disabled={selectedGenre?.name === ''}
+                        disabled={false}
                         callback={() => {}}
                         actionType="submit"
                     >

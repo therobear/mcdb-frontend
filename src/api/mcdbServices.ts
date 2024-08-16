@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { Game, Platform, GameGenre } from '../models';
+import { Game, Platform, GameGenre, MobyPlatform } from '../models';
 import { toast } from 'react-hot-toast';
 import { MCDBSERVICEURL, GAMESSERVICE, PLATFORMSERVICE, GAMEGENRESSERVICE } from './apiConfig';
 
@@ -20,7 +20,25 @@ const mcdbServices = {
         });
     },
     createGame: async (game: Game) => {
-        return await axios.post(`${MCDBSERVICEURL}/${GAMESSERVICE}`, game).then((response) => {
+        const platforms: any[] = [];
+        // const ownedPlatforms: string[] = [];
+        const genres: any[] = [];
+
+        game.platforms.map((platform: MobyPlatform, index: number) => {
+            platforms.push({ releaseDate: platform.releaseDate, platformName: platform.platformName });
+        })
+
+        // game.ownedPlatforms.map((owned: string, index: number) => {
+        //     ownedPlatforms.push(owned);
+        // })
+
+        game.genres.map((genre: GameGenre, index: number) => {
+            genres.push({ id: genre._id, name: genre.name, abbreviation: genre.abbreviation});
+        })
+
+        let submittedGame = {title: game.title, description: game.description, coverUrl: game.coverUrl, platforms: platforms, screenshots: game.screenshots, genres: genres, ownedPlatforms: game.ownedPlatforms}
+
+        return await axios.post(`${MCDBSERVICEURL}/${GAMESSERVICE}`, submittedGame).then((response) => {
             toast.success(`Platform ${game.title} was added successfuly.`);
             return response.data;
         }).catch((error) => {
@@ -103,7 +121,7 @@ const mcdbServices = {
         });
     },
     createGameGenre: async (gameGenre: GameGenre) => {
-        const ggData = { name: gameGenre.name };
+        const ggData = { name: gameGenre.name, abbreviation: gameGenre.abbreviation };
 
         return await axios.post(`${MCDBSERVICEURL}/${GAMEGENRESSERVICE}`, ggData).then((response) => {
             toast.success(`Game genre ${gameGenre.name} was added successfuly.`);
@@ -113,7 +131,7 @@ const mcdbServices = {
         });
     },
     updateGameGenre: async (gameGenre: GameGenre) => {
-        const ggData = { name: gameGenre.name };
+        const ggData = { name: gameGenre.name, abbreviation: gameGenre.abbreviation };
         
         return await axios.put(`${MCDBSERVICEURL}/${GAMEGENRESSERVICE}/${gameGenre._id}`, ggData).then((response) => {
             toast.success(`Game genre was updated successfuly.`);

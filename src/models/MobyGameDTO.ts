@@ -1,7 +1,7 @@
 import { MobyPlatform } from "./MobyPlatform";
 
 export class MobyGameDTO {
-    constructor(private _title: string, private _description: string, private _coverUrl: string, private _platforms: MobyPlatform[], private _screenshots: string[]){
+    constructor(private _title: string, private _description: string, private _coverUrl: string, private _platforms: MobyPlatform[], private _screenshots: string[], private _genres: object[]){
     }
 
     public get title(): string {
@@ -22,5 +22,9 @@ export class MobyGameDTO {
 
     public get screenshots(): string[] {
         return this._screenshots;
+    }
+
+    public get genres(): object[] {
+        return this._genres;
     }
 }

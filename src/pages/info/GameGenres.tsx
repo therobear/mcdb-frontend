@@ -73,6 +73,7 @@ const GameGenres = () => {
             return gameGenreList.map((genre: GameGenre, index: number) => (
                 <tr key={`genre-${genre.name}-${index}`}>
                     <td>{genre.name}</td>
+                    <td>{genre.abbreviation}</td>
                     <td className="row center-lg">
                         <Button
                             buttonType="standard"
@@ -120,7 +121,10 @@ const GameGenres = () => {
                         <table>
                             <thead>
                                 <tr>
-                                    <th style={{ width: '80%' }}>Name</th>
+                                    <th style={{ width: '40%' }}>Name</th>
+                                    <th style={{ width: '40%' }}>
+                                        Abbreviation
+                                    </th>
                                     <th
                                         style={{
                                             width: '20%',

@@ -1,5 +1,5 @@
 export class GameGenre {
-    constructor(public _id: string | undefined, private _name: string) {
+    constructor(public _id: string | undefined, private _name: string, private _abbreviation: string) {
     }
 
     public get name(): string {
@@ -8,5 +8,13 @@ export class GameGenre {
 
     public set name(value: string) {
         this._name = value;
+    }
+
+    public get abbreviation() {
+        return this._abbreviation;
+    }
+
+    public set abbreviation(value: string) {
+        this._abbreviation = value;
     }
 }

@@ -11,6 +11,7 @@ type CreateGameGenreModalType = {
 
 const CreateGameGenreModal = ({ callback }: CreateGameGenreModalType) => {
     const [genreName, setGenreName] = useState<string>('');
+    const [genreAbbrev, setGenreAbbrev] = useState<string>('');
 
     const queryClient = useQueryClient();
 
@@ -27,7 +28,7 @@ const CreateGameGenreModal = ({ callback }: CreateGameGenreModalType) => {
     });
 
     const handleSubmit = async () => {
-        const genre = new GameGenre(undefined, genreName!);
+        const genre = new GameGenre(undefined, genreName!, genreAbbrev!);
 
         mutateCreateGameGenre(genre);
     };
@@ -54,6 +55,13 @@ const CreateGameGenreModal = ({ callback }: CreateGameGenreModalType) => {
                     <input
                         type="text"
                         onChange={(e) => setGenreName(e.target.value)}
+                    />
+                    <div>
+                        <b>Genre Abbreviation</b>
+                    </div>
+                    <input
+                        type="text"
+                        onChange={(e) => setGenreAbbrev(e.target.value)}
                     />
                 </div>
                 <div className="row end-lg modal-buttons-div">

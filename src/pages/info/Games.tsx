@@ -38,13 +38,13 @@ const Games = () => {
     } = useGetGameGenreList({});
 
     useEffect(() => {
-        setGamesList(games);
-        setPlatformList(platforms);
-        setGenreList(genres);
-
         let pChecked: any = {};
 
+        if (!isLoadingGamesList) setGamesList(games);
+
         if (!isLoadingPlatformList) {
+            setPlatformList(platforms);
+
             platforms.map((platform: Platform, index: number) => {
                 pChecked[platform.name] = false;
             });
@@ -55,13 +55,15 @@ const Games = () => {
         let gChecked: any = {};
 
         if (!isLoadingGenreList) {
+            setGenreList(genres);
+
             genres.map((genre: GameGenre, index: number) => {
                 gChecked[genre.name] = false;
             });
 
             setGenreFilterOptions(gChecked);
         }
-    }, [isLoadingGamesList, isLoadingPlatformList, isLoadingGenreList]);
+    }, [games, isLoadingPlatformList, isLoadingGenreList]);
 
     const onCheckboxChange = (type: string, keyName: string) => {
         let filterList: any = {};

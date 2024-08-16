@@ -1,4 +1,5 @@
 // MCDB Hooks
+import { default as useCreateGame } from './MCDB/Games/useCreateGame';
 import { default as useGetGamesList } from './MCDB/Games/useGetGamesList';
 import { default as useGetGameInfo } from './MCDB/Games/useGetGameInfo';
 import { default as useGetPlatformList } from './MCDB/Platform/useGetPlatformList';
@@ -14,6 +15,7 @@ import { default as useDeleteGameGenre } from './MCDB/GameGenres/useDeleteGameGe
 import { default as useMobyGameSearch } from './Moby/useMobyGameSearch';
 
 export {
+    useCreateGame,
     useGetGamesList,
     useGetGameInfo,
     useMobyGameSearch,

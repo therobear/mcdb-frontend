@@ -2,7 +2,8 @@ import { MobyPlatform } from "./MobyPlatform";
 import { GameGenre } from "./GameGenre";
 
 export class Game {
-    constructor(public _id: string | undefined, private _title: string, private _description: string, private _coverUrl: string, private _platforms: MobyPlatform[], private _screenshots: string[], private _ownedPlatforms: string[], private _genres: GameGenre[], private _createdDate: Date, private _modifiedDate: Date) {
+    constructor(public _id: string | undefined, private _title: string, private _description: string, private _coverUrl: string, private _platforms: MobyPlatform[], private _screenshots: string[], private _ownedPlatforms: string[], private _genres: GameGenre[], private _createdDate: Date | undefined, private _modifiedDate: Date | undefined
+    ) {
     }
 
     public get title() {

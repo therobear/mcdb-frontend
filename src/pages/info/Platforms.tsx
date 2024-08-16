@@ -73,6 +73,7 @@ const Platforms = () => {
             return platformList.map((platform: Platform, index: number) => (
                 <tr key={`platform-${platform.name}-${index}`}>
                     <td>{platform.name}</td>
+                    <td>{platform.abbreviation}</td>
                     <td className="row center-lg">
                         <Button
                             buttonType="standard"
@@ -121,7 +122,10 @@ const Platforms = () => {
                         <table>
                             <thead>
                                 <tr>
-                                    <th style={{ width: '80%' }}>Name</th>
+                                    <th style={{ width: '40%' }}>Name</th>
+                                    <th style={{ width: '40%' }}>
+                                        Abbreviation
+                                    </th>
                                     <th
                                         style={{
                                             width: '20%',
